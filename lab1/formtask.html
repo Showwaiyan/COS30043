@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+        <title>WAI Form Task - COS30043 Accessible Form</title>
+        <meta charset="utf-8" />
+        <meta name="language" content="english" />
+        <meta name="keywords" content="Accessibility,Lab,Tasks,WAI,Form" />
+        <meta name="description" content="WAI Accessible Order Form Task for COS30043 Interface Design and Development" />
+        <style>
+                /* Skip-to-content link — visible on focus only (WCAG 2.4.1) */
+                .skip-link {
+                        position: absolute;
+                        top: -40px;
+                        left: 0;
+                        background: #000000;
+                        color: #ffffff;
+                        padding: 8px 12px;
+                        z-index: 100;
+                        text-decoration: none;
+                        font-weight: bold;
+                }
+                .skip-link:focus {
+                        top: 0;
+                }
+                /* Required-field asterisk colour supplemented with "(required)" text */
+                .required-star {
+                        color: #c00000;
+                        font-weight: bold;
+                }
+                /* Screen-reader-only helper class */
+                .sr-only {
+                        position: absolute;
+                        width: 1px;
+                        height: 1px;
+                        padding: 0;
+                        margin: -1px;
+                        overflow: hidden;
+                        clip: rect(0, 0, 0, 0);
+                        white-space: nowrap;
+                        border: 0;
+                }
+                /* Form layout — labels wrap their controls for tight proximity */
+                .form-field {
+                        margin-bottom: 1rem;
+                }
+                .form-field label {
+                        display: block;
+                        margin-bottom: 0.25rem;
+                }
+                .form-field input[type="text"],
+                .form-field input[type="email"],
+                .form-field textarea {
+                        display: block;
+                        margin-top: 0.15rem;
+                }
+                /* Radio group */
+                .radio-group {
+                        margin-bottom: 0.5rem;
+                }
+                .radio-option {
+                        display: inline-block;
+                        margin-right: 1rem;
+                }
+                .radio-option label {
+                        display: inline;
+                        cursor: pointer;
+                }
+                /* Error styling — uses border + icon, not colour alone (WCAG 1.4.1) */
+                .error-message {
+                        color: #c00000;
+                        font-weight: bold;
+                        margin-top: 0.25rem;
+                        display: none;
+                }
+                .error-message::before {
+                        content: "\26A0 ";
+                }
+                input:invalid:not(:placeholder-shown),
+                textarea:invalid:not(:placeholder-shown) {
+                        border: 2px solid #c00000;
+                        outline: 2px solid #c00000;
+                }
+                /* Button styling — distinct via border, weight, and background (WCAG 1.4.1) */
+                input[type="submit"],
+                input[type="reset"] {
+                        padding: 0.5rem 1rem;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        border: 2px solid #333;
+                        border-radius: 4px;
+                        margin-right: 0.5rem;
+                }
+                input[type="submit"] {
+                        background-color: #005a00;
+                        color: #ffffff;
+                        font-weight: bold;
+                }
+                input[type="reset"] {
+                        background-color: #f0f0f0;
+                        color: #333333;
+                }
+                .hint-text {
+                        display: block;
+                        font-size: 0.9em;
+                        color: #555;
+                        margin-top: 0.15rem;
+                }
+        </style>
+</head>
+<body>
+        <!-- Skip-to-content link placed as first focusable element (WCAG 2.4.1) -->
+        <a href="#main-content" class="skip-link">Skip to main form content</a>
+
+        <main id="main-content">
+                <h1>WAI Form Example</h1>
+                <p>Please complete all required form fields indicated with <span class="required-star" aria-hidden="true">*</span><span class="sr-only">(required)</span> below to submit your order.</p>
+
+                <!-- Live region for form-level error announcements (WCAG 3.3.1, 3.3.3) -->
+                <div id="form-errors" role="alert" aria-live="assertive"></div>
+
+                <form method="post" action="http://mercury.swin.edu.au/it000000/formtest.php" novalidate>
+                        <fieldset>
+                                <legend>Contact Information</legend>
+
+                                <!-- Full Name — label wraps input for proximity (WCAG 1.3.1 Check 211) -->
+                                <div class="form-field">
+                                        <label for="cname">Full Name <span class="required-star" aria-hidden="true">*</span><span class="sr-only"> (required)</span>:
+                                                <input type="text" name="cname" id="cname" required aria-required="true" aria-describedby="cname-error" autocomplete="name" placeholder=" " />
+                                        </label>
+                                        <span class="error-message" id="cname-error" role="alert">Please enter your full name.</span>
+                                </div>
+
+                                <!-- E-mail — label wraps input for proximity -->
+                                <div class="form-field">
+                                        <label for="cemail">E-mail Address <span class="required-star" aria-hidden="true">*</span><span class="sr-only"> (required)</span>:
+                                                <input type="email" name="cemail" id="cemail" required aria-required="true" aria-describedby="cemail-error" autocomplete="email" placeholder=" " />
+                                        </label>
+                                        <span class="error-message" id="cemail-error" role="alert">Please enter a valid e-mail address.</span>
+                                </div>
+
+                                <!-- Mailing Address — label wraps textarea for proximity (Check 96) -->
+                                <div class="form-field">
+                                        <label for="caddr">Mailing Address <span class="required-star" aria-hidden="true">*</span><span class="sr-only"> (required)</span>:
+                                                <textarea name="caddr" id="caddr" rows="4" cols="40" required aria-required="true" aria-describedby="caddr-error" autocomplete="street-address" placeholder=" "></textarea>
+                                        </label>
+                                        <span class="error-message" id="caddr-error" role="alert">Please enter your mailing address.</span>
+                                </div>
+                        </fieldset>
+
+                        <fieldset>
+                                <legend>Credit Card Information</legend>
+
+                                <!-- Card type radios — each label wraps its radio for proximity (Check 125) -->
+                                <div class="form-field">
+                                        <div class="radio-group" role="radiogroup" aria-labelledby="card-type-label" aria-required="true">
+                                                <span id="card-type-label"><strong>Card Type <span class="required-star" aria-hidden="true">*</span><span class="sr-only"> (required)</span>:</strong></span>
+                                                <div class="radio-option">
+                                                        <label for="cvisa"><input type="radio" name="card" id="cvisa" value="visa" required aria-required="true" /> Visa</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                        <label for="cmc"><input type="radio" name="card" id="cmc" value="mc" required aria-required="true" /> MasterCard</label>
+                                                </div>
+                                        </div>
+                                        <span class="error-message" id="card-error" role="alert">Please select a card type.</span>
+                                </div>
+
+                                <!-- Card Number — label wraps input for proximity -->
+                                <div class="form-field">
+                                        <label for="cnumber">Card Number <span class="required-star" aria-hidden="true">*</span><span class="sr-only"> (required)</span>:
+                                                <input type="text" name="number" id="cnumber" required aria-required="true" aria-describedby="cnumber-hint cnumber-error" autocomplete="cc-number" inputmode="numeric" pattern="[0-9\s\-]+" placeholder=" " />
+                                        </label>
+                                        <span id="cnumber-hint" class="hint-text">Enter your credit card number (digits only).</span>
+                                        <span class="error-message" id="cnumber-error" role="alert">Please enter a valid card number.</span>
+                                </div>
+
+                                <!-- Card Expiry — label wraps input for proximity -->
+                                <div class="form-field">
+                                        <label for="cexpiry">Card Expiry <span class="required-star" aria-hidden="true">*</span><span class="sr-only"> (required)</span>:
+                                                <input type="text" name="expiry" id="cexpiry" required aria-required="true" aria-describedby="cexpiry-hint cexpiry-error" autocomplete="cc-exp" pattern="\d{2}/\d{2}" placeholder="MM/YY" />
+                                        </label>
+                                        <span id="cexpiry-hint" class="hint-text">Format: MM/YY</span>
+                                        <span class="error-message" id="cexpiry-error" role="alert">Please enter a valid expiry date in MM/YY format.</span>
+                                </div>
+                        </fieldset>
+
+                        <!-- Submit / Reset — wrapped in labels so label text is not empty (Check 188) -->
+                        <div class="form-field">
+                                <label for="csubmit"><span class="sr-only">Submit order form</span>
+                                        <input type="submit" id="csubmit" value="Submit order" aria-label="Submit order form" />
+                                </label>
+                                <label for="creset"><span class="sr-only">Clear order form</span>
+                                        <input type="reset" id="creset" value="Clear order" aria-label="Clear order form" />
+                                </label>
+                        </div>
+                </form>
+        </main>
+
+        <!--
+                Client-side validation script (WCAG 3.3.1, 3.3.3, 3.3.4).
+                - Keyboard accessible: all interactions use standard form events (submit, click).
+                - No flicker / flash: the script only shows/hides static text; no animation or colour cycling.
+                - Colour is not used alone: errors use text + icon (warning triangle) + border.
+        -->
+        <script>
+                (function () {
+                        var form = document.querySelector('form');
+                        var errorsDiv = document.getElementById('form-errors');
+
+                        // Validate on submit — shows descriptive per-field errors and a summary
+                        form.addEventListener('submit', function (e) {
+                                var errors = [];
+                                var firstInvalid = null;
+
+                                // Clear previous inline errors
+                                var errorSpans = form.querySelectorAll('.error-message');
+                                for (var i = 0; i < errorSpans.length; i++) {
+                                        errorSpans[i].style.display = 'none';
+                                }
+
+                                // Required text / email / textarea fields
+                                var fields = [
+                                        { id: 'cname',   errorId: 'cname-error',   msg: 'Full Name is required.' },
+                                        { id: 'cemail',  errorId: 'cemail-error',  msg: 'A valid E-mail Address is required.' },
+                                        { id: 'caddr',   errorId: 'caddr-error',   msg: 'Mailing Address is required.' },
+                                        { id: 'cnumber', errorId: 'cnumber-error', msg: 'Card Number is required.' },
+                                        { id: 'cexpiry', errorId: 'cexpiry-error', msg: 'Card Expiry is required (MM/YY).' }
+                                ];
+
+                                for (var j = 0; j < fields.length; j++) {
+                                        var field = document.getElementById(fields[j].id);
+                                        if (!field.value.trim()) {
+                                                errors.push(fields[j].msg);
+                                                document.getElementById(fields[j].errorId).style.display = 'block';
+                                                if (!firstInvalid) firstInvalid = field;
+                                        }
+                                }
+
+                                // Radio button group
+                                var cardSelected = form.querySelector('input[name="card"]:checked');
+                                if (!cardSelected) {
+                                        errors.push('Please select a Card Type (Visa or MasterCard).');
+                                        document.getElementById('card-error').style.display = 'block';
+                                        if (!firstInvalid) firstInvalid = document.getElementById('cvisa');
+                                }
+
+                                if (errors.length > 0) {
+                                        e.preventDefault();
+                                        errorsDiv.innerHTML = '<strong>Please correct the following errors:</strong>' +
+                                                '<ul>' +
+                                                errors.map(function (err) { return '<li>' + err + '</li>'; }).join('') +
+                                                '</ul>';
+                                        if (firstInvalid) firstInvalid.focus();
+                                } else {
+                                        errorsDiv.innerHTML = '';
+                                }
+                        });
+
+                        // Confirm before reset — prevents accidental data loss (WCAG 3.3.4)
+                        document.getElementById('creset').addEventListener('click', function (e) {
+                                if (!confirm('Are you sure you want to clear all form data? This action cannot be undone.')) {
+                                        e.preventDefault();
+                                }
+                        });
+                })();
+        </script>
+        <noscript>
+                <p>This form requires JavaScript for enhanced validation and error messages. Please enable JavaScript in your browser settings.</p>
+        </noscript>
+</body>
+</html>

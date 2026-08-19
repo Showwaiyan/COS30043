@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COS30043 Interface Design and Development - Lab 01</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar with Logo and Max 3 Links -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/logo.svg" alt="COS30043 Lab Logo" class="logo-img" width="32" height="32">
+      <span class="logo-text">COS30043 | Lab 01</span>
+    </div>
+    <nav aria-label="Main Navigation">
+      <a href="#overview">Overview</a>
+      <a href="#instructions">Lab Instructions</a>
+      <a href="#submission">Submission</a>
+    </nav>
+  </header>
+
+  <!-- Page Title and Main Content Body -->
+  <main>
+    <header class="doc-header">
+      <h1>COS30043 Interface Design and Development</h1>
+      <h2>Lab 01 Instructions</h2>
+    </header>
+
+    <!-- Overview Section -->
+    <section id="overview" aria-labelledby="overview-heading">
+      <h3 id="overview-heading">Overview</h3>
+      <p>
+        In this lab you will set up your development environment, create a webpage using HTML and CSS, and learn how to test your pages for accessibility compliance using tools.
+      </p>
+      
+      <figure>
+        <!-- Added descriptive alt attribute to fix image accessibility -->
+        <img src="images/web-dev-hero.jpg" alt="Development workspace setup with VS Code editor and live server browser preview">
+        <figcaption>Figure 1: Development workspace setup with live server preview</figcaption>
+      </figure>
+    </section>
+
+    <!-- Lab Instructions Section (Parts 1 to 4) -->
+    <section id="instructions" aria-labelledby="instructions-heading">
+      <h3 id="instructions-heading">Lab Instructions &amp; Tasks</h3>
+
+      <!-- Part 1: Heading h4 sequentially follows h3 -->
+      <article class="part-block">
+        <h4>Part 1: Setting Up Your Development Environment</h4>
+        <p>
+          If you have not already done so, install Visual Studio Code from 
+          <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">https://code.visualstudio.com/</a>.
+        </p>
+        <p>Install the following recommended extensions:</p>
+        <ul>
+          <li>
+            <strong>Live Server:</strong> Live Server can launch a local development server with live reload. If you right-click an HTML file and select &ldquo;Open with Live Server,&rdquo; you can preview your page in the browser.
+          </li>
+        </ul>
+      </article>
+
+      <!-- Part 2 -->
+      <article class="part-block">
+        <h4>Part 2: Create a Webpage</h4>
+        <p>
+          Create a single webpage using HTML and CSS to refresh what you learned before. You may also incorporate other techniques you know (e.g. JavaScript), but HTML and CSS are the minimum requirement.
+        </p>
+        <p>Your page must include the following elements:</p>
+        <ul>
+          <li>A logo.</li>
+          <li>A page title.</li>
+          <li>A navigation bar with links.</li>
+          <li>A footer with relevant information (e.g. copyright, contact details).</li>
+          <li>The main body of the page must include at least: a paragraph, an image, a table, and a list.</li>
+          <li>Use appropriate styles.</li>
+        </ul>
+        <p>
+          Preview your page using VS Code Live Server. Continue refining it until you are satisfied with the layout and content.
+        </p>
+      </article>
+
+      <!-- Part 3 -->
+      <article class="part-block">
+        <h4>Part 3: Accessibility Testing with Lighthouse</h4>
+        <p>
+          Lighthouse is an open-source auditing tool built into Google Chrome&rsquo;s DevTools. It evaluates web pages for performance, accessibility, best practices, and SEO, and provides actionable recommendations for improvement.
+        </p>
+        <ol>
+          <li>Open your webpage in Google Chrome using Live Server.</li>
+          <li>Open Chrome DevTools (right-click the page and select &ldquo;Inspect&rdquo;).</li>
+          <li>Navigate to the &ldquo;Lighthouse&rdquo; tab in DevTools.</li>
+          <li>Under &ldquo;Categories&rdquo;, ensure &ldquo;Accessibility&rdquo; is selected (you may deselect others to speed up the audit).</li>
+          <li>Click &ldquo;Analyze page load&rdquo; to generate the report.</li>
+          <li>Review the accessibility score and the list of issues found.</li>
+          <li>Address the issues in your HTML/CSS, save, and re-run the audit until the score improves.</li>
+        </ol>
+      </article>
+
+      <!-- Part 4 -->
+      <article class="part-block">
+        <h4>Part 4: Accessibility Testing with AChecker</h4>
+        <p>
+          AChecker is a web-based accessibility evaluation tool that checks HTML content against accessibility standards such as WCAG 2.0.
+        </p>
+        <ol>
+          <li>Go to <a href="https://achecker.achecks.ca/checker/index.php" target="_blank" rel="noopener noreferrer">https://achecker.achecks.ca/checker/index.php</a>.</li>
+          <li>Select &ldquo;HTML File Upload&rdquo; and choose the attached &ldquo;formtask.html&rdquo;.</li>
+          <li>Expand the &ldquo;Options&rdquo; section and select &ldquo;WCAG 2.0 (Level AA)&rdquo;.</li>
+          <li>Click &ldquo;Check It&rdquo;.</li>
+        </ol>
+        <p>The Accessibility Review will categorise issues into three types:</p>
+        <ul>
+          <li><strong>Known Problems:</strong> Definite accessibility barriers that must be fixed.</li>
+          <li><strong>Likely Problems:</strong> Issues that are very probably barriers and should be reviewed.</li>
+          <li><strong>Potential Problems:</strong> Items that may be barriers depending on context; review is recommended.</li>
+        </ul>
+        <p>
+          Review the Known Problems and fix them. Re-test your page after each round of fixes until there are no Known Problems remaining.
+        </p>
+      </article>
+    </section>
+
+    <!-- Submission & Assessment Section -->
+    <section id="submission" aria-labelledby="submission-heading">
+      <h3 id="submission-heading">Submission &amp; Assessment</h3>
+      <p>
+        Submit your work to Canvas, including your website source code, a screenshot of the Lighthouse accessibility score, the fixed <code>formtask.html</code>, and an AChecker report.
+      </p>
+      <p>
+        Show your work to your tutor during the lab session to get marked off. This lab is assessed in Week 1 and Week 2 only. If you cannot attend, please provide supporting documentation (e.g. a medical certificate) to request an extension.
+      </p>
+      <p>
+        Your tutor will review your work and ask you questions to assess your understanding. Marks are based on the quality of your work and your ability to explain your work.
+      </p>
+
+      <!-- Assessment Rubric Table -->
+      <table>
+        <caption>COS30043 Lab 01 Assessment Rubric</caption>
+        <thead>
+          <tr>
+            <th scope="col">Marks</th>
+            <th scope="col">Criteria &amp; Demonstration of Understanding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Up to 2 marks</td>
+            <td>Limited or no understanding demonstrated.</td>
+          </tr>
+          <tr>
+            <td>Up to 4 marks</td>
+            <td>Reasonable understanding demonstrated.</td>
+          </tr>
+          <tr>
+            <td>Up to 6 marks</td>
+            <td>Strong and clear understanding demonstrated.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- Footer with Relevant Information -->
+  <footer>
+    <p>Contact: <a href="mailto:student@swinburne.edu.au">student@swinburne.edu.au</a> | Swinburne University of Technology</p>
+    <p>&copy; 2026 COS30043 Interface Design and Development. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
