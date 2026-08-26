@@ -3,27 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COS30043 Interface Design &amp; Development</title>
+  <title>COS30043 — Interface Design &amp; Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #1f2937;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
-      --link: #2563eb;
-      --link-hover: #1d4ed8;
-      --tag-bg: #f3f4f6;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --tree-line: #30363d;
+      --tree-line-hover: #58a6ff;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --folder: #79c0ff;
+      --html-file: #58a6ff;
+      --pdf-file: #f0883e;
+      --link: #58a6ff;
+      --badge-bg: rgba(56, 139, 253, 0.15);
+      --badge-text: #58a6ff;
+      --desc-text: #8b949e;
     }
 
-    @media (prefers-color-scheme: dark) {
+    @media (prefers-color-scheme: light) {
       :root {
-        --bg: #111827;
-        --text: #f9fafb;
-        --text-muted: #9ca3af;
-        --border: #374151;
-        --link: #60a5fa;
-        --link-hover: #93c5fd;
-        --tag-bg: #1f2937;
+        --bg: #ffffff;
+        --surface: #f6f8fa;
+        --border: #d0d7de;
+        --tree-line: #d0d7de;
+        --tree-line-hover: #0969da;
+        --text: #1f2328;
+        --text-muted: #656d76;
+        --folder: #0969da;
+        --html-file: #0969da;
+        --pdf-file: #bc4c00;
+        --link: #0969da;
+        --badge-bg: rgba(9, 105, 218, 0.1);
+        --badge-text: #0969da;
+        --desc-text: #656d76;
       }
     }
 
@@ -34,154 +52,301 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.5;
       padding: 2.5rem 1.5rem;
-      max-width: 680px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
     header {
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
       border-bottom: 1px solid var(--border);
     }
 
+    .title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
     h1 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      letter-spacing: -0.01em;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.02em;
+    }
+
+    .course-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      border: 1px solid currentColor;
     }
 
     .subtitle {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-top: 0.25rem;
+      font-size: 0.9rem;
+      margin-top: 0.35rem;
     }
 
-    section {
-      margin-bottom: 2.5rem;
+    /* Tree Hierarchy Container */
+    .tree-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
     }
 
-    h2 {
-      font-size: 1.1rem;
+    .root-node {
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
+      color: var(--folder);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
     }
 
-    ul {
-      list-style: none;
+    /* Nested Tree Structure with Connecting Lines */
+    ul.tree, ul.tree ul {
+      list-style-type: none;
+      position: relative;
+      margin: 0;
+      padding: 0;
     }
 
-    li {
-      margin-bottom: 1.25rem;
+    ul.tree ul {
+      margin-left: 1.4rem;
+      padding-left: 1.2rem;
+      border-left: 1.5px solid var(--tree-line);
     }
 
-    .item-title {
-      font-size: 1rem;
+    ul.tree li {
+      position: relative;
+      margin: 0.55rem 0;
+      padding-left: 1.2rem;
+    }
+
+    /* Branch Connector */
+    ul.tree li::before {
+      content: '';
+      position: absolute;
+      top: 0.75em;
+      left: -1.2rem;
+      width: 1rem;
+      height: 1.5px;
+      background-color: var(--tree-line);
+    }
+
+    /* Item Nodes */
+    .node-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .folder-name {
+      font-weight: 600;
+      color: var(--folder);
+    }
+
+    .icon {
+      font-style: normal;
+      font-size: 0.95em;
+      opacity: 0.85;
+    }
+
+    .file-link {
+      color: var(--html-file);
+      text-decoration: none;
       font-weight: 500;
+      transition: all 0.15s ease;
     }
 
-    .item-title a {
+    .file-link:hover {
+      text-decoration: underline;
+    }
+
+    .file-link.pdf {
+      color: var(--pdf-file);
+    }
+
+    .desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: var(--desc-text);
+      margin-left: 0.25rem;
+    }
+
+    .desc::before {
+      content: "— ";
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    footer a {
       color: var(--link);
       text-decoration: none;
     }
 
-    .item-title a:hover {
+    footer a:hover {
       text-decoration: underline;
-      color: var(--link-hover);
-    }
-
-    .item-desc {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-top: 0.15rem;
-    }
-
-    .sub-links {
-      margin-top: 0.35rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-    }
-
-    .sub-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      background: var(--tag-bg);
-      padding: 0.15rem 0.5rem;
-      border-radius: 4px;
-      border: 1px solid var(--border);
-    }
-
-    .sub-links a:hover {
-      color: var(--text);
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>COS30043</h1>
-    <p class="subtitle">Interface Design &amp; Development — Course Index</p>
+    <div class="title-row">
+      <h1>COS30043</h1>
+      <span class="course-badge">GitHub Pages Hub</span>
+    </div>
+    <p class="subtitle">Interface Design and Development &bull; Coursework Directory Tree</p>
   </header>
 
   <main>
-    <section>
-      <h2>Labs</h2>
-      <ul>
+    <div class="tree-container" role="tree" aria-label="Course Files Hierarchy">
+      
+      <!-- Root Directory -->
+      <div class="root-node">
+        <span class="icon">📁</span>
+        <span>cos30043 /</span>
+      </div>
+
+      <!-- Root Children -->
+      <ul class="tree">
+        
+        <!-- Labs Branch -->
         <li>
-          <div class="item-title">
-            <a href="labs/lab1/index.html">Lab 01: Semantic HTML &amp; Layout</a>
+          <div class="node-row">
+            <span class="icon">📁</span>
+            <span class="folder-name">labs /</span>
           </div>
-          <div class="item-desc">Semantic document hierarchy, basic styling, and navigation.</div>
-          <div class="sub-links">
-            <a href="labs/lab1/formtask.html">Form Task (WAI)</a>
-            <a href="labs/lab1/COS30043%20Interface%20Design%20and%20Development%20Lab%201.pdf" target="_blank">Lab 1 PDF</a>
-            <a href="labs/lab1/Web%20Accessibility%20Checker%20_%20Web%20Accessibility%20Checker%20Before.pdf" target="_blank">A11y Report (Before)</a>
-            <a href="labs/lab1/Web%20Accessibility%20Checker%20_%20Web%20Accessibility%20CheckerAfter.pdf" target="_blank">A11y Report (After)</a>
-          </div>
+
+          <ul>
+            <!-- Lab 1 -->
+            <li>
+              <div class="node-row">
+                <span class="icon">📁</span>
+                <span class="folder-name">lab1 /</span>
+              </div>
+
+              <ul>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">🌐</span>
+                    <a href="labs/lab1/index.html" class="file-link">index.html</a>
+                    <span class="desc">Semantic HTML5 Layout &amp; Structure</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">🌐</span>
+                    <a href="labs/lab1/formtask.html" class="file-link">formtask.html</a>
+                    <span class="desc">WAI Accessible Form Task (WCAG 2.1)</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">📄</span>
+                    <a href="labs/lab1/COS30043%20Interface%20Design%20and%20Development%20Lab%201.pdf" target="_blank" class="file-link pdf">Lab 1 Specification.pdf</a>
+                    <span class="desc">Lab 1 Brief</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">📄</span>
+                    <a href="labs/lab1/Web%20Accessibility%20Checker%20_%20Web%20Accessibility%20Checker%20Before.pdf" target="_blank" class="file-link pdf">Accessibility Report (Before).pdf</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">📄</span>
+                    <a href="labs/lab1/Web%20Accessibility%20Checker%20_%20Web%20Accessibility%20CheckerAfter.pdf" target="_blank" class="file-link pdf">Accessibility Report (After).pdf</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Lab 2 -->
+            <li>
+              <div class="node-row">
+                <span class="icon">📁</span>
+                <span class="folder-name">lab2 /</span>
+              </div>
+
+              <ul>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">🌐</span>
+                    <a href="labs/lab2/lab02.html" class="file-link">lab02.html</a>
+                    <span class="desc">Bootstrap 5 Grid System &amp; Breakpoints</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
 
+        <!-- Lectures Branch -->
         <li>
-          <div class="item-title">
-            <a href="labs/lab2/lab02.html">Lab 02: Bootstrap 5 Grid System</a>
+          <div class="node-row">
+            <span class="icon">📁</span>
+            <span class="folder-name">lectures /</span>
           </div>
-          <div class="item-desc">Responsive columns, row layouts, and breakpoint demos.</div>
-        </li>
-      </ul>
-    </section>
 
-    <section>
-      <h2>Lectures</h2>
-      <ul>
-        <li>
-          <div class="item-title">
-            <a href="lectures/lecture2/index.html">Lecture 02: Bootstrap Intro</a>
-          </div>
-          <div class="item-desc">Bootstrap CDN setup and responsive product card layout demo.</div>
+          <ul>
+            <!-- Lecture 2 -->
+            <li>
+              <div class="node-row">
+                <span class="icon">📁</span>
+                <span class="folder-name">lecture2 /</span>
+              </div>
+
+              <ul>
+                <li>
+                  <div class="node-row">
+                    <span class="icon">🌐</span>
+                    <a href="lectures/lecture2/index.html" class="file-link">index.html</a>
+                    <span class="desc">Bootstrap Components &amp; Layout Demo</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
+
       </ul>
-    </section>
+    </div>
   </main>
 
   <footer>
-    <p>Hosted on GitHub Pages</p>
+    <span>Swinburne University of Technology</span>
+    <span>Hosted on GitHub Pages</span>
   </footer>
 
 </body>
