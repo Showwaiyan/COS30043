@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="COS30043 Interface Design and Development - Coursework directory, labs, and lecture exercises.">
+  <title>COS30043 - Interface Design and Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-card: rgba(30, 41, 59, 0.85);
+      --bg-card-hover: rgba(51, 65, 85, 0.95);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --accent-subtle: rgba(56, 189, 248, 0.12);
+      --border: rgba(148, 163, 184, 0.15);
+      --badge-lab: #0284c7;
+      --badge-lec: #8b5cf6;
+      --badge-doc: #10b981;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -4px rgba(0, 0, 0, 0.25);
+      --radius: 12px;
+      --radius-sm: 6px;
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      padding: 3.5rem 0 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      font-size: 0.825rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+    }
+
+    /* Navigation / Quick Links */
+    .quick-nav {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-pill:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      transform: translateY(-1px);
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 2.5rem 0 4rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-wrapper {
+      margin-bottom: 3.5rem;
+    }
+
+    /* Grid & Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+    }
+
+    .badge-lab {
+      background: rgba(2, 132, 199, 0.18);
+      color: #38bdf8;
+      border: 1px solid rgba(2, 132, 199, 0.35);
+    }
+
+    .badge-lecture {
+      background: rgba(139, 92, 246, 0.18);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+
+    .badge-doc {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+      text-decoration: none;
+    }
+
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      color: var(--accent);
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .card-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.6rem;
+      background: rgba(56, 189, 248, 0.06);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      transition: var(--transition);
+    }
+
+    .action-link:hover {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+
+    .action-link.secondary {
+      color: var(--text-secondary);
+      background: rgba(148, 163, 184, 0.06);
+      border-color: rgba(148, 163, 184, 0.15);
+    }
+
+    .action-link.secondary:hover {
+      background: rgba(148, 163, 184, 0.18);
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .path-code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      word-break: break-all;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="hero-badge">Swinburne University of Technology</div>
+      <h1>COS30043 Interface Design &amp; Development</h1>
+      <p class="subtitle">Index and showcase of practical laboratory assignments, interactive tasks, and lecture demonstrations.</p>
+      
+      <nav class="quick-nav" aria-label="Course section navigation">
+        <a href="#labs" class="nav-pill">🧪 Practical Labs</a>
+        <a href="#lectures" class="nav-pill">📖 Lecture Demos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      
+      <!-- Labs Section -->
+      <section id="labs" class="section-wrapper">
+        <h2 class="section-title">
+          <span>🧪 Laboratory Exercises</span>
+        </h2>
+        
+        <div class="grid">
+
+          <!-- Lab 1: Main Page -->
+          <article class="card">
+            <div>
+              <div class="card-top">
+                <span class="badge badge-lab">Lab 01</span>
+              </div>
+              <h3 class="card-title">
+                <a href="labs/lab1/index.html">Semantic HTML &amp; Layout</a>
+              </h3>
+              <p class="card-desc">
+                Exploration of semantic HTML5 layout structures, responsive styling, accessibility rules, navigation, and document hierarchy.
+              </p>
+            </div>
+            
+            <div>
+              <div class="card-links">
+                <a href="labs/lab1/index.html" class="action-link">
+                  <span>View Lab 01 Page</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+              <div class="path-code">labs/lab1/index.html</div>
+            </div>
+          </article>
+
+          <!-- Lab 1: WAI Accessible Form Task -->
+          <article class="card">
+            <div>
+              <div class="card-top">
+                <span class="badge badge-lab">Lab 01 Task</span>
+              </div>
+              <h3 class="card-title">
+                <a href="labs/lab1/formtask.html">WAI Accessible Form</a>
+              </h3>
+              <p class="card-desc">
+                Accessible product ordering form incorporating WCAG 2.1 guidelines: explicit label associations, ARIA attributes, skip-links, and fieldset grouping.
+              </p>
+            </div>
+            
+            <div>
+              <div class="card-links">
+                <a href="labs/lab1/formtask.html" class="action-link">
+                  <span>Open Form Task</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+              <div class="path-code">labs/lab1/formtask.html</div>
+            </div>
+          </article>
+
+          <!-- Lab 2: Bootstrap Grid -->
+          <article class="card">
+            <div>
+              <div class="card-top">
+                <span class="badge badge-lab">Lab 02</span>
+              </div>
+              <h3 class="card-title">
+                <a href="labs/lab2/lab02.html">Bootstrap 5 Grid System</a>
+              </h3>
+              <p class="card-desc">
+                Practice with responsive layouts, container structures, multi-column row wrapping, and responsive column breakpoints using Bootstrap 5.
+              </p>
+            </div>
+            
+            <div>
+              <div class="card-links">
+                <a href="labs/lab2/lab02.html" class="action-link">
+                  <span>View Lab 02 Grid Demo</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+              <div class="path-code">labs/lab2/lab02.html</div>
+            </div>
+          </article>
+
+          <!-- Lab 1 Documents & PDF Resources -->
+          <article class="card">
+            <div>
+              <div class="card-top">
+                <span class="badge badge-doc">Lab 01 Docs</span>
+              </div>
+              <h3 class="card-title">
+                Lab 01 PDF Documents
+              </h3>
+              <p class="card-desc">
+                Lab specifications and accessibility validation before/after evaluation reports.
+              </p>
+            </div>
+            
+            <div>
+              <div class="card-links">
+                <a href="labs/lab1/COS30043%20Interface%20Design%20and%20Development%20Lab%201.pdf" target="_blank" class="action-link secondary">
+                  <span>Lab 1 Specification (PDF)</span>
+                  <span>&#8599;</span>
+                </a>
+                <a href="labs/lab1/Web%20Accessibility%20Checker%20_%20Web%20Accessibility%20Checker%20Before.pdf" target="_blank" class="action-link secondary">
+                  <span>Accessibility Report - Before (PDF)</span>
+                  <span>&#8599;</span>
+                </a>
+                <a href="labs/lab1/Web%20Accessibility%20Checker%20_%20Web%20Accessibility%20CheckerAfter.pdf" target="_blank" class="action-link secondary">
+                  <span>Accessibility Report - After (PDF)</span>
+                  <span>&#8599;</span>
+                </a>
+              </div>
+              <div class="path-code">labs/lab1/*.pdf</div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Lectures Section -->
+      <section id="lectures" class="section-wrapper">
+        <h2 class="section-title">
+          <span>📖 Lecture Demonstrations</span>
+        </h2>
+        
+        <div class="grid">
+
+          <!-- Lecture 2: Bootstrap Intro -->
+          <article class="card">
+            <div>
+              <div class="card-top">
+                <span class="badge badge-lecture">Lecture 02</span>
+              </div>
+              <h3 class="card-title">
+                <a href="lectures/lecture2/index.html">Bootstrap Components Demo</a>
+              </h3>
+              <p class="card-desc">
+                In-class lecture demonstration covering Bootstrap CDN integration, typography, and responsive multi-column product card layout.
+              </p>
+            </div>
+            
+            <div>
+              <div class="card-links">
+                <a href="lectures/lecture2/index.html" class="action-link">
+                  <span>Open Lecture 02 Demo</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+              <div class="path-code">lectures/lecture2/index.html</div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>COS30043 Interface Design and Development &bull; Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+</body>
+</html>
