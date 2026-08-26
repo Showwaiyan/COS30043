@@ -4,128 +4,176 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TechNova Solutions</title>
-  <!-- Bootstrap 5 CSS -->
+
+  <!-- Bootstrap 5 Grid CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Bootstrap Icons -->
+  <!-- Bootstrap Icons for item icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #0d6efd;
+      color: white;
+      padding: 20px 0;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .main-content {
+      margin: 40px auto;
+    }
+
+    .about-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 40px 0 25px 0;
+    }
+
+    /* Visually distinct boxes for the 6 items */
+    .feature-box {
+      border: 1px solid #b6d4fe;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      color: #0d6efd;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #333333;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 1. Website Title / Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <!-- 1. Website Title -->
+  <header>
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-        <img src="logo.svg" alt="TechNova Logo" width="36" height="36" />
-        <span>TechNova Solutions</span>
-      </a>
+      <h1 style="margin: 0;">
+        <img src="logo.svg" alt="TechNova Logo" class="logo" />
+        TechNova Solutions
+      </h1>
     </div>
-  </nav>
+  </header>
 
-  <div class="container my-5">
-    <!-- 2. Description (2/3 width) and Image (1/3 width) side by side on medium+, stacking on small -->
-    <section class="row align-items-center mb-5">
+  <div class="container main-content">
+    <!-- 2. Description (2/3 width) and Image (1/3 width) -->
+    <div class="row">
       <div class="col-12 col-md-8">
         <h2>About TechNova Solutions</h2>
-        <p class="lead text-muted">Empowering businesses with modern digital tools and intelligent cloud solutions.</p>
         <p>
-          We are dedicated to delivering innovative technology services tailored to your needs. 
-          Our expert team works collaboratively to build scalable, high-performance web applications 
-          and enterprise platforms that drive digital transformation.
+          TechNova Solutions provides modern software and digital technology services. 
+          We help businesses build fast, reliable, and scalable web applications.
+        </p>
+        <p>
+          Our team works collaboratively to deliver high quality solutions 
+          that meet industry standards and help companies achieve digital transformation.
         </p>
       </div>
-      <div class="col-12 col-md-4 text-center mt-3 mt-md-0">
-        <img src="about.jpg" class="img-fluid rounded shadow-sm" alt="TechNova Team and Office" />
+      <div class="col-12 col-md-4">
+        <img src="about.jpg" alt="About TechNova Team" class="about-img" />
       </div>
-    </section>
+    </div>
 
-    <!-- 3. Why Choose Us? Section -->
-    <section class="my-5">
-      <h2 class="text-center mb-4">Why Choose Us?</h2>
-      
-      <!-- 
-        Bootstrap Grid Breakpoints:
-        - Mobile (small): col-12 (1 column)
-        - Tablet (medium): col-md-6 (2 columns)
-        - Desktop (large): col-lg-4 (3 columns)
-      -->
-      <div class="row g-4">
-        <!-- Item 1 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 text-center p-3 border-primary shadow-sm">
-            <div class="card-body">
-              <i class="bi bi-lightning-charge fs-1 text-primary mb-3"></i>
-              <h5 class="card-title">Fast Performance</h5>
-              <p class="card-text text-muted">Optimized architectures ensure your applications load rapidly and smoothly.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 text-center p-3 border-primary shadow-sm">
-            <div class="card-body">
-              <i class="bi bi-shield-check fs-1 text-primary mb-3"></i>
-              <h5 class="card-title">High Security</h5>
-              <p class="card-text text-muted">Industry-standard security protocols and data encryption built into every layer.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 text-center p-3 border-primary shadow-sm">
-            <div class="card-body">
-              <i class="bi bi-headset fs-1 text-primary mb-3"></i>
-              <h5 class="card-title">24/7 Support</h5>
-              <p class="card-text text-muted">Our dedicated support engineers are always ready to assist you anytime.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 text-center p-3 border-primary shadow-sm">
-            <div class="card-body">
-              <i class="bi bi-graph-up-arrow fs-1 text-primary mb-3"></i>
-              <h5 class="card-title">Scalability</h5>
-              <p class="card-text text-muted">Solutions built to seamlessly grow alongside your expanding business demands.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 5 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 text-center p-3 border-primary shadow-sm">
-            <div class="card-body">
-              <i class="bi bi-award fs-1 text-primary mb-3"></i>
-              <h5 class="card-title">Proven Quality</h5>
-              <p class="card-text text-muted">Consistently verified and tested to adhere to modern industry standards.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 6 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="card h-100 text-center p-3 border-primary shadow-sm">
-            <div class="card-body">
-              <i class="bi bi-gear fs-1 text-primary mb-3"></i>
-              <h5 class="card-title">Custom Solutions</h5>
-              <p class="card-text text-muted">Tailor-made software features customized specifically to your business goals.</p>
-            </div>
-          </div>
+    <!-- 3. Why Choose Us? Section (6 items with 3 breakpoints) -->
+    <h2 class="section-title">Why Choose Us?</h2>
+    
+    <div class="row">
+      <!-- Item 1 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="feature-box">
+          <i class="bi bi-lightning-charge feature-icon"></i>
+          <h3>Fast Performance</h3>
+          <p>Optimized architectures ensure your applications load rapidly and smoothly.</p>
         </div>
       </div>
-    </section>
+
+      <!-- Item 2 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="feature-box">
+          <i class="bi bi-shield-check feature-icon"></i>
+          <h3>High Security</h3>
+          <p>Industry-standard security protocols and data encryption built into every layer.</p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="feature-box">
+          <i class="bi bi-headset feature-icon"></i>
+          <h3>24/7 Support</h3>
+          <p>Our dedicated support engineers are always ready to assist you anytime.</p>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="feature-box">
+          <i class="bi bi-graph-up-arrow feature-icon"></i>
+          <h3>Scalability</h3>
+          <p>Solutions built to seamlessly grow alongside your expanding business demands.</p>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="feature-box">
+          <i class="bi bi-award feature-icon"></i>
+          <h3>Proven Quality</h3>
+          <p>Consistently verified and tested to adhere to modern industry standards.</p>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="feature-box">
+          <i class="bi bi-gear feature-icon"></i>
+          <h3>Custom Solutions</h3>
+          <p>Tailor-made software features customized specifically to your business goals.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- 4. Footer with Copyright Information -->
-  <footer class="bg-dark text-white text-center py-4 mt-5">
+  <!-- 4. Footer -->
+  <footer>
     <div class="container">
-      <p class="mb-0">&copy; 2026 TechNova Solutions. All rights reserved.</p>
+      <p>&copy; 2026 TechNova Solutions. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
