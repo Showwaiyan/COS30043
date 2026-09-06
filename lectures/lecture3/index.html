@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue Basics</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>{{message}}</h1>
+      <h2>{{test}}</h2>
+      <h3>{{count}}</h3>
+      <input v-model="message" type="text" />
+      <button @click="increment">Click</button>
+      <a v-bind:href="video">{{video}}</a>
+      <button @click="change">Change</button>
+      <div>
+        <div v-if="log">Log is true</div>
+        <div v-else>Log is false</div>
+        <button @click="toggleLog">Log</button>
+      </div>
+      <div>
+        <li v-for="fruit of fruits" :key="fruit">{{fruit}}</li>
+      </div>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            message: "Hello Vue!",
+            test: "Show",
+            count: 0,
+            video1: "https://youtu.be/g3u2roBqbvE?si=Z0kdsQ0pb5v7Xdkr",
+            video2: "https://youtu.be/MZfhhl6ej-k?si=JPqj5t8oumb-_7aa",
+            currentVideo: 1,
+            video: "Test",
+            log: true,
+            fruits: ["Appel", "Mango", "Banana"]
+          };
+        },
+        methods: {
+          increment() {
+            this.count++;
+          },
+          change() {
+            if (this.currentVideo == 1) {
+              console.log("1")
+              this.video = this.video1
+              this.currentVideo = 2
+              return
+            }
+            if (this.currentVideo == 2) {
+              console.log("2")
+              this.video = this.video2
+              this.currentVideo = 1
+              return
+            }
+          },
+          toggleLog() {
+            this.log = !this.log
+          }
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
