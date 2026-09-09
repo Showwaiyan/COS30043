@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div id="app" class="container my-4">
+    <div class="row mb-3">
+      <div class="col-12">
+        <h1>Number Guessing Game</h1>
+      </div>
+    </div>
+
+    <div class="row mb-3 align-items-center">
+      <div class="col-12 col-sm-auto mb-2 mb-sm-0">
+        <label for="guess" class="col-form-label">Enter your guess from 1 to 100</label>
+      </div>
+      <div class="col-12 col-sm-auto">
+        <input type="number" id="guess" class="form-control" min="1" max="100" v-model="guess">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-flex flex-wrap gap-2">
+        <button type="button" @click="checkGuess">Check Guess</button>
+        <button type="button" @click="giveUp">Give Up</button>
+        <button type="button" @click="startOver">Start Over</button>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <p id="info">{{ message }}</p>
+        <p id="attempts">Attempts: {{ attempt }}</p>
+        <p>Your guesses: <span v-for="(item, index) in guessHistory" :key="index">{{ item }}{{ index < guessHistory.length - 1 ? ', ' : '' }}</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          guess: null,
+          isDisable: false,
+          numberToGuess: Math.floor(Math.random() * 100) + 1,
+          attempt: 5,
+          message: 'Start Guessing',
+          isCorrect: false,
+          guessHistory: []
+        };
+      },
+      methods: {
+        checkGuess() {
+          if (this.attempt <= 0) return;
+
+          const userGuess = Number(this.guess);
+          this.guessHistory.push(userGuess);
+          this.attempt--;
+
+          if (userGuess === this.numberToGuess) {
+            this.message = 'You got it!';
+            this.isCorrect = true;
+            this.isDisable = true;
+          } else if (this.attempt <= 0) {
+            this.message = `Game Over! The number was ${this.numberToGuess}`;
+            this.isDisable = true;
+          } else if (userGuess > this.numberToGuess) {
+            this.message = 'Guess lower';
+            this.isCorrect = false;
+          } else {
+            this.message = 'Guess higher';
+            this.isCorrect = false;
+          }
+        },
+        giveUp() {
+          this.message = `The number was ${this.numberToGuess}`;
+        },
+        startOver() {
+          this.guess = null;
+          this.isDisable = false;
+          this.attempt = 5;
+          this.message = 'Start Guessing';
+          this.isCorrect = false;
+          this.numberToGuess = Math.floor(Math.random() * 100) + 1;
+          this.guessHistory = [];
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
